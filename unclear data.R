@@ -1,3 +1,4 @@
+library(treemap)
 ethinicity_area_plot <- function(){
   ethinicity_area <- read_csv("/Users/andychang/onedrive/r project/hate crimes in uk and usa/areas-of-england-and-wales-by-ethnicity.csv")
   ethinicity_area$`Standard Ethnicity` <- as.factor(ethinicity_area$`Standard Ethnicity`)
@@ -7,8 +8,6 @@ ethinicity_area_plot <- function(){
   return(ethinicity_area)
 }
 head(ethinicity_area_plot())
-###  條字體大小 另外圖形的編排方式依照區域來分
-library(treemap)
 colnames(ethinicity_area_plot())
 freq(ethinicity_area_plot()$'Standard Ethnicity')
 #### treemap done
@@ -38,7 +37,7 @@ treemap(ethinicity_area_plot(), index = c("Region","Standard Ethnicity"), vSize 
     names_to = "ethinicity",
     values_to = "guess_statistics"
   )
-  ### 改日期
+  ### change date
   future_population_new$year <- as.Date(future_population_new$year, format =  "%Y")
   future_population_new$ethinicity <- as.factor(future_population_new$ethinicity)
   future_population_new$guess_statistics <- as.numeric(as.character(future_population_new$guess_statistics))
@@ -47,7 +46,7 @@ treemap(ethinicity_area_plot(), index = c("Region","Standard Ethnicity"), vSize 
 future_population_all_12to18 <- rbind(future_population_all(2012), future_population_all(2013),future_population_all(2014),future_population_all(2015),future_population_all(2016),future_population_all(2017),future_population_all(2018))
 head(future_population_all_12to18,5)
 future_population_all_12to18 <- future_population_all_12to18[future_population_all_12to18$Area != "United Kingdom",]
-### plot done
+### plot check
 future_population_all_12to18 <- future_population_all_12to18[future_population_all_12to18$ethinicity != "Total",]
 future_population_all_12to18$year <- str_remove(future_population_all_12to18$year, pattern = "-07-11")
 ggplot(data = future_population_all_12to18, aes(x = year,guess_statistics, y = guess_statistics, fill = ethinicity, group = Area))+
