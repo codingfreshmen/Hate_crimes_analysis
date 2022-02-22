@@ -1,10 +1,3 @@
-###note 
-########uk_merge_data_ 和 ethinicity_area_plot 兩者可能要合併 不同區域下的城市對照合併
-### 犯罪數據可以做不同年的變化
-### 不同種族匙骯害比例 可以用直條圖表示
-### 註記一下種族分佈圖因為好幾年才公布一次 所以前提是假設沒什麼變化 以2011為主 下一次公布2021 
-#### 做圖想法 兩個 一個是底圖是種族分佈(用密度圖) 上面則是放不同地區遭受的傷害用泡泡圖
-### 也可以上面疊加的適用點圖
 library(tidyverse)
 library(dplyr)
 library(ggmap)
@@ -13,7 +6,7 @@ library(readr)
 library(xlsx)
 library(jiebaR)
 library(reshape2)
-#### 合併資料 
+#### merge data
 uk_merge_data <- function(){
   total_offences <- read_csv("/Users/andychang/onedrive/r project/hate crimes in uk and usa/uk total offences.csv")
   view(total_offences)
@@ -44,7 +37,7 @@ colnames(uk_merge_data_1)[5] <- "motivating_factor"
 a <- uk_merge_data_1[uk_merge_data_1$force_name != "Metropolitan Police",]
 a[a$year == "2018",]
 max(a[a$year == "2018",]$total_numbers)
-#### plotly
+#### visualization
 library(plotly)
 library(wesanderson)
 ### 需要修圖
@@ -63,8 +56,8 @@ Sys.setenv("plotly_api_key"="V2cdYE3VwLVvN1E6A4Sb")
 file.create("glen_project.Rprofile")
 file.edit("glen_project.Rprofile") 
 api_create(htmlpig,filename = "英國仇恨犯罪",fileopt = "overwrite") 
-### 參考看看別人的視覺化資料 這樣比較知道可以怎麼做 因為這次資料比較多
-###可加入比例
+
+### add ration is a plus
 ethinity_1819 <- function(){
   test_4 <- readxl::read_excel("/users/andychang/onedrive/r project/hate crimes in uk and usa/hate-crime-1819-hosb2419-tables.xls", sheet = "Table_3")
   test_4
